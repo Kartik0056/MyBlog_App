@@ -59,10 +59,10 @@ const BlogList = ({ blogs, loading, onEdit, onDelete, onLike }) => {
           {blog.image ? (
             <div className="h-12 w-12 rounded overflow-hidden">
               <img
-                src={`http://localhost:3000/${blog.image}`}
-                alt={blog.title}
-                className="h-full w-full object-cover"
-              />
+                  src={blog.image || "/placeholder.svg"}
+                  alt={blog.title}
+                  className="h-full w-full object-cover"
+                />
             </div>
           ) : (
             <div className="h-12 w-12 rounded bg-muted flex items-center justify-center">
