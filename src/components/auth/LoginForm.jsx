@@ -52,8 +52,8 @@ const LoginForm = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold text-indigo-600 tracking-tight">Welcome Back</h1>
-          <p className="mt-3 text-gray-600 text-lg">Sign in to your account to continue your journey</p>
+          <h1 className="text-4xl font-extrabold text-indigo-600 tracking-tight">Welcome</h1>
+          <p className="mt-3 text-gray-600 text-lg">Sign in to your account</p>
         </div>
 
         <div className="bg-white shadow-xl rounded-xl p-8 mt-8">
