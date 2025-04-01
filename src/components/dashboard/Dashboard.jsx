@@ -1,4 +1,3 @@
-"use client"
 
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
@@ -17,7 +16,8 @@ const Dashboard = () => {
   const [showAddForm, setShowAddForm] = useState(false)
   const [editBlog, setEditBlog] = useState(null)
   const [confirmModal, setConfirmModal] = useState({ isOpen: false, blogId: null });
-
+  const PORT_For_VERCEL = "https://my-blog-app-backend-tau.vercel.app";
+  const PORT_For_API = PORT_For_VERCEL || "http://localhost:3000";
   useEffect(() => {
     const token = localStorage.getItem("token")
     const userData = localStorage.getItem("user")
@@ -35,7 +35,7 @@ const Dashboard = () => {
     try {
       setLoading(true)
       const token = localStorage.getItem("token")
-      const response = await axios.get("http://localhost:3000/api/blogs", {
+      const response = await axios.get(`${PORT_For_API}/api/blogs`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setBlogs(response.data)
@@ -62,7 +62,7 @@ const Dashboard = () => {
         formData.append("blogImage", blogData.image)
       }
 
-      await axios.post("http://localhost:3000/api/blogs", formData, {
+      await axios.post(`${PORT_For_API}/api/blogs`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       })
 
@@ -83,7 +83,7 @@ const Dashboard = () => {
         formData.append("blogImage", blogData.image)
       }
 
-      await axios.put(`http://localhost:3000/api/blogs/${editBlog._id}`, formData, {
+      await axios.put(`${PORT_For_API}/api/blogs/${editBlog._id}`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       })
 
@@ -105,7 +105,7 @@ const Dashboard = () => {
       if (!blogId) return;
 
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/api/blogs/${blogId}`, {
+      await axios.delete(`${PORT_For_API}/api/blogs/${blogId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -125,7 +125,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token")
       await axios.post(
-        `http://localhost:3000/api/blogs/${blogId}/like`,
+        `${PORT_For_API}/api/blogs/${blogId}/like`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

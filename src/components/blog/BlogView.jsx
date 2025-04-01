@@ -1,4 +1,3 @@
-"use client"
 
 import { useState, useEffect } from "react"
 import axios from "axios"
@@ -11,6 +10,8 @@ const BlogView = ({ blog, onClose }) => {
   const [loading, setLoading] = useState(false)
   const [currentUser, setCurrentUser] = useState(null)
 
+  const PORT_For_VERCEL = "https://my-blog-app-backend-tau.vercel.app";
+  const PORT_For_API = PORT_For_VERCEL || "http://localhost:3000";
   useEffect(() => {
     const userData = localStorage.getItem("user")
     if (userData) {
@@ -23,7 +24,7 @@ const BlogView = ({ blog, onClose }) => {
     try {
       setLoading(true)
       const token = localStorage.getItem("token")
-      const response = await axios.get(`http://localhost:3000/api/blogs/${blog._id}/comments`, {
+      const response = await axios.get(`${PORT_For_API}/api/blogs/${blog._id}/comments`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setComments(response.data)
@@ -41,7 +42,7 @@ const BlogView = ({ blog, onClose }) => {
     try {
       const token = localStorage.getItem("token")
       await axios.post(
-        `http://localhost:3000/api/blogs/${blog._id}/comments`,
+        `${PORT_For_API}/api/blogs/${blog._id}/comments`,
         { content: newComment },
         { headers: { Authorization: `Bearer ${token}` } },
       )
@@ -59,7 +60,7 @@ const BlogView = ({ blog, onClose }) => {
     try {
       const token = localStorage.getItem("token")
       await axios.post(
-        `http://localhost:3000/api/blogs/${blog._id}/comments/${commentId}/replies`,
+        `${PORT_For_API}/api/blogs/${blog._id}/comments/${commentId}/replies`,
         { content: replyText },
         { headers: { Authorization: `Bearer ${token}` } },
       )
@@ -76,7 +77,7 @@ const BlogView = ({ blog, onClose }) => {
     if (window.confirm("Are you sure you want to delete this comment?")) {
       try {
         const token = localStorage.getItem("token")
-        await axios.delete(`http://localhost:3000/api/blogs/${blog._id}/comments/${commentId}`, {
+        await axios.delete(`${PORT_For_API}/api/blogs/${blog._id}/comments/${commentId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         fetchComments()
@@ -90,7 +91,7 @@ const BlogView = ({ blog, onClose }) => {
     try {
       const token = localStorage.getItem("token")
       await axios.post(
-        `http://localhost:3000/api/blogs/${blog._id}/comments/${commentId}/like`,
+        `${PORT_For_API}/api/blogs/${blog._id}/comments/${commentId}/like`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -106,7 +107,7 @@ const BlogView = ({ blog, onClose }) => {
     try {
       const token = localStorage.getItem("token")
       await axios.post(
-        `http://localhost:3000/api/blogs/${blog._id}/like`,
+        `${PORT_For_API}/api/blogs/${blog._id}/like`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

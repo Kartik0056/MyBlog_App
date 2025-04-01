@@ -1,10 +1,12 @@
-"use client"
 
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
 const LoginForm = () => {
+
+  const PORT_For_VERCEL = "https://my-blog-app-backend-tau.vercel.app";
+  const PORT_For_API = PORT_For_VERCEL || "http://localhost:3000";
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: "",
@@ -30,7 +32,7 @@ const LoginForm = () => {
 
     try {
       setLoading(true)
-      const response = await axios.post("http://localhost:3000/api/users/login", formData)
+      const response = await axios.post(`${PORT_For_API}/api/users/login`, formData)
 
       if (response.data.token) {
         localStorage.setItem("token", response.data.token)
