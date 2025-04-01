@@ -1,52 +1,55 @@
-
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
 const LoginForm = () => {
-
   const PORT_For_VERCEL = "https://my-blog-app-backend-tau.vercel.app";
   const PORT_For_API = PORT_For_VERCEL || "http://localhost:3000";
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError("")
+    e.preventDefault();
+    setError("");
 
     // Validation
     if (!formData.email || !formData.password) {
-      setError("All fields are required")
-      return
+      setError("All fields are required");
+      return;
     }
 
     try {
-      setLoading(true)
-      const response = await axios.post(`${PORT_For_API}/api/users/login`, formData)
+      setLoading(true);
+      const response = await axios.post(`${PORT_For_API}/api/users/login`, formData);
+      console.log("Response received:", response); // Log the response
 
+      // Check if the token is returned
       if (response.data.token) {
-        localStorage.setItem("token", response.data.token)
-        localStorage.setItem("user", JSON.stringify(response.data.user))
-        console.log("Redirecting to dashboard...")
-        navigate("/dashboard")
-        console.log("Navigation function executed")
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        console.log("Redirecting to dashboard...");
+
+        // Navigate to the dashboard after successful login
+        navigate("/dashboard");
+        console.log("Navigation function executed");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Invalid credentials")
+      console.error("Error:", err); // Log any error
+      setError(err.response?.data?.message || "Invalid credentials");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -192,8 +195,7 @@ const LoginForm = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginForm
-
+export default LoginForm;
