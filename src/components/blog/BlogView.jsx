@@ -177,7 +177,7 @@ const BlogView = ({ blog, onClose }) => {
             </div>
 
             <div className="prose max-w-none">
-              <p className="whitespace-pre-line text-gray-700"><span className="text-bold-400">Discription:</span> {blog.description}</p>
+              <p className="whitespace-pre-line text-gray-700"><span className="font-bold">Discription:</span> {blog.description}</p>
             </div>
 
             <div className="border-t border-gray-200 pt-6">
