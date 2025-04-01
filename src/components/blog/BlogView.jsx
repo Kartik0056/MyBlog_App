@@ -144,7 +144,7 @@ const BlogView = ({ blog, onClose }) => {
         </button>
 
         <div className="p-6 overflow-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">{blog.title}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Title: {blog.title}</h2>
 
           <div className="space-y-6">
             {blog.image && (
@@ -177,7 +177,7 @@ const BlogView = ({ blog, onClose }) => {
             </div>
 
             <div className="prose max-w-none">
-              <p className="whitespace-pre-line text-gray-700">{blog.description}</p>
+              <p className="whitespace-pre-line text-gray-700">Discription: {blog.description}</p>
             </div>
 
             <div className="border-t border-gray-200 pt-6">
